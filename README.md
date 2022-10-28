@@ -4,6 +4,6 @@ Simple tools.
 ## Install
 
 ```
-cd lvdskit/lvdskit/
+cd lvdskit/liblvdskit/
 make install
 ```
