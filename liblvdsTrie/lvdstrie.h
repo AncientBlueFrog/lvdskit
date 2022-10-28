@@ -9,44 +9,44 @@
 #define STRANGE_VALUE_OFFSET 37
 
 // trie struct
-struct Trie
+struct lvds_trie
 {
     bool end;
-    struct Trie *node[TRIE_MAGIC_NUMBER];
+    struct lvds_trie *node[TRIE_MAGIC_NUMBER];
 };
 
-struct Data_Trie
+struct lvds_dtrie
 {
     void *data;
-    struct Data_Trie *node[TRIE_MAGIC_NUMBER];
+    struct lvds_dtrie *node[TRIE_MAGIC_NUMBER];
 };
 // Make a new node.
-struct Trie *trie_new_node();
+struct lvds_trie *trie_new_node();
 
 /*
  * Returns true if word is in dictionary else false.
  */
 
-bool trie_check(struct Trie *, const char word[]);
+bool trie_check(struct lvds_trie *, const char word[]);
 
 /*
  * Loads dict into memory.  Returns true if successful else false.
  */
 
-bool trie_load(struct Trie *, const char[]);
-bool trie_load_strings(struct Trie *, int, char *(*)[]);
-bool trie_load_file(struct Trie *, const char[]);
+bool trie_load(struct lvds_trie *, const char[]);
+bool trie_load_strings(struct lvds_trie *, int, char *(*)[]);
+bool trie_load_file(struct lvds_trie *, const char[]);
 
 /*
  * Unloads dictionary from memory.  Returns true if successful else false.
  */
 
-void trie_unload(struct Trie *);
+void trie_unload(struct lvds_trie *);
 
-// Data Trie
-struct Data_Trie *dtrie_new_node();
-void *dtrie_check(struct Data_Trie *, const char word[]);
-void dtrie_unload(struct Data_Trie *);
-bool dtrie_load(struct Data_Trie *, const char[], void *);
+// Data lvds_trie
+struct lvds_dtrie *dtrie_new_node();
+void *dtrie_check(struct lvds_dtrie *, const char word[]);
+void dtrie_unload(struct lvds_dtrie *);
+bool dtrie_load(struct lvds_dtrie *, const char[], void *);
 
 #endif //

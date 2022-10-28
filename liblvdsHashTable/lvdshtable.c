@@ -1,7 +1,11 @@
 #include "lvdshtable.h"
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#define DISPLAY_MALLOC_ERROR printf("Failed to allocate memory\n")
+
+typedef lvds_hashtable hashtable;
 
 unsigned long djb2(unsigned char *key)
 {
@@ -44,7 +48,7 @@ bool hashtable_delete(hashtable *table)
     return true;
 }
 
-bool hashtable_unload(hashtable *table, void (*data_unload_function)())
+bool hashtable_unload(hashtable *table, void (*cleaner_fun)(void *))
 {
     for (int i = 0; i < HT_MAGIC_NUMBER; i++)
     {
@@ -55,10 +59,10 @@ bool hashtable_unload(hashtable *table, void (*data_unload_function)())
 
             if (previous_list->data != NULL)
             {
-                if (data_unload_function == NULL)
+                if (cleaner_fun == NULL)
                     free(previous_list->data);
                 else
-                    data_unload_function(previous_list->data);
+                    cleaner_fun(previous_list->data);
             }
             free(previous_list);
         }
@@ -72,7 +76,10 @@ bool hashtable_unload(hashtable *table, void (*data_unload_function)())
 bool hashtable_load(hashtable *table, void *data, char *key)
 {
     if (key == NULL)
+    {
+        printf("Attempt to pass a NULL key to a hashtable\n");
         return false;
+    }
 
     unsigned long hash = HASH_FUNCTION((unsigned char *)key);
     int index = hash % HT_MAGIC_NUMBER;
@@ -80,8 +87,10 @@ bool hashtable_load(hashtable *table, void *data, char *key)
     char *temp_str = strdup(key);
 
     if (temp_str == NULL)
+    {
+        DISPLAY_MALLOC_ERROR;
         return false;
-
+    }
     struct ht_elem *previous_list = NULL;
     for (struct ht_elem *list = (*table)[index]; list != NULL; list = list->next)
         previous_list = list;
@@ -89,7 +98,10 @@ bool hashtable_load(hashtable *table, void *data, char *key)
     struct ht_elem *next_list = malloc(sizeof(struct ht_elem));
 
     if (next_list == NULL)
+    {
+        DISPLAY_MALLOC_ERROR;
         return false;
+    }
 
     next_list->data = data;
     next_list->key = temp_str;
@@ -106,31 +118,46 @@ bool hashtable_load(hashtable *table, void *data, char *key)
 bool hashtable_sload(hashtable *table, void *data, char *key)
 {
     if (key == NULL)
+    {
+        printf("Attempt to pass a NULL key to a hashtable\n");
         return false;
+    }
 
     unsigned long hash = HASH_FUNCTION((unsigned char *)key);
     int index = hash % HT_MAGIC_NUMBER;
+    char *temp_str = NULL;
 
     struct ht_elem *previous_list = NULL;
     for (struct ht_elem *list = (*table)[index]; list != NULL; list = list->next)
     {
         previous_list = list;
 
+        // Verify if the key is already in the hashtable.
         if (!strcmp(key, previous_list->key))
         {
+            // If the table returns data(not NULL) from the key, end function.
+            if (hashtable_check(table, key) == NULL)
+                hashtable_load(table, data, key);
+
             return true;
         }
     }
 
-    char *temp_str = strdup(key);
+    temp_str = strdup(key);
 
     if (temp_str == NULL)
+    {
+        DISPLAY_MALLOC_ERROR;
         return false;
+    }
 
     struct ht_elem *next_list = malloc(sizeof(struct ht_elem));
 
     if (next_list == NULL)
+    {
+        DISPLAY_MALLOC_ERROR;
         return false;
+    }
 
     next_list->data = data;
     next_list->key = temp_str;
@@ -144,10 +171,13 @@ bool hashtable_sload(hashtable *table, void *data, char *key)
     return true;
 }
 
-bool hashtable_sload_fif(hashtable *table, void *data, char *key, void (*cleaner_fun)())
+bool hashtable_sload_fif(hashtable *table, void *data, char *key, void (*cleaner_fun)(void *))
 {
     if (key == NULL)
+    {
+        printf("Attempt to pass a NULL key to a hashtable\n");
         return false;
+    }
 
     unsigned long hash = HASH_FUNCTION((unsigned char *)key);
     int index = hash % HT_MAGIC_NUMBER;
@@ -174,12 +204,18 @@ bool hashtable_sload_fif(hashtable *table, void *data, char *key, void (*cleaner
     char *temp_str = strdup(key);
 
     if (temp_str == NULL)
+    {
+        DISPLAY_MALLOC_ERROR;
         return false;
+    }
 
     struct ht_elem *next_list = malloc(sizeof(struct ht_elem));
 
     if (next_list == NULL)
+    {
+        DISPLAY_MALLOC_ERROR;
         return false;
+    }
 
     next_list->data = data;
     next_list->key = temp_str;
@@ -195,6 +231,12 @@ bool hashtable_sload_fif(hashtable *table, void *data, char *key, void (*cleaner
 
 void *hashtable_check(hashtable *table, char *key)
 {
+    if ((table == NULL) || (key == NULL))
+    {
+        printf("Attempt to pass NULL values to function\n");
+        return NULL;
+    }
+
     unsigned long hash = HASH_FUNCTION((unsigned char *)key);
     int index = hash % HT_MAGIC_NUMBER;
 
@@ -209,7 +251,7 @@ void *hashtable_check(hashtable *table, char *key)
         }
     }
 
-    return false;
+    return NULL;
 }
 
 bool hashtable_append(hashtable *dest, hashtable *src)

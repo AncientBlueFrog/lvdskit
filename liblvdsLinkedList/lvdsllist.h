@@ -2,32 +2,34 @@
 #define LVDSLLIST_H
 
 #include <stdbool.h>
+#include <stdio.h>
 
-struct LinkedList
+struct ll_node
 {
     void *data;
-    struct LinkedList *next;
+    struct ll_node *next;
 };
 
-struct List
+struct lvds_list
 {
     bool link;
-    struct LinkedList *start, *end, *cursor;
+    struct ll_node *start, *end, *cursor;
 };
 
-struct List *new_list();
-struct List *ll_new_link(struct List *src_list);
-bool list_add(struct List *l, void *value);
-bool list_sadd(struct List *l, char *value);
-void list_delete_node(struct List *l, int index);
-void list_unload_node(struct List *l, int index);
-void list_delete(struct List *l);
-void list_unload(struct List *l);
-void list_rewind(struct List *l);
-void *list_get(struct List *l);
-bool list_search_string(struct List *l, char *str);
-bool list_append(struct List *dest, struct List *src);
-bool list_sappend(struct List *dest, struct List *src);
-bool list_absorb(struct List *dest, struct List *src);
+struct lvds_list *new_list();
+struct lvds_list *ll_new_link(struct lvds_list *src_list);
+bool list_add(struct lvds_list *l, void *value);
+bool list_sadd(struct lvds_list *l, char *value);
+void list_delete_node(struct lvds_list *l, int index);
+void list_unload_node(struct lvds_list *l, int index);
+void list_delete(struct lvds_list *l);
+void list_unload(struct lvds_list *l, void (*cleaner)(void *));
+void list_sunload(struct lvds_list *l);
+void list_rewind(struct lvds_list *l);
+void *list_get(struct lvds_list *l);
+bool list_search_string(struct lvds_list *l, char *str);
+bool list_append(struct lvds_list *dest, struct lvds_list *src);
+bool list_sappend(struct lvds_list *dest, struct lvds_list *src);
+bool list_absorb(struct lvds_list *dest, struct lvds_list *src);
 
 #endif // lvdsllist

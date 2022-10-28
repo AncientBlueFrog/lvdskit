@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct Data_Trie dtrie;
+typedef struct lvds_dtrie dtrie;
 
 // Make a new node.
 dtrie *dtrie_new_node()
@@ -88,7 +88,10 @@ void *dtrie_check(dtrie *node, const char *word)
 bool dtrie_load(dtrie *node, const char word[], void *data)
 {
     if (!node)
+    {
+        printf("Attempt to pass a NULL key to a hashtable\n");
         return false;
+    }
 
     dtrie *next_node;
 

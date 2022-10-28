@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct Trie trie;
+typedef struct lvds_trie trie;
 
 // Make a new node.
 trie *trie_new_node()
@@ -129,8 +129,11 @@ bool trie_load_strings(trie *node, int nmem, char *(*words)[])
 
 bool trie_load(trie *node, const char word[])
 {
-    if (!node)
+    if (node == NULL)
+    {
+        printf("Attempt to pass a NULL key to a hashtable\n");
         return false;
+    }
 
     trie *next_node;
 
