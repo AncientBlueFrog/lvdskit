@@ -23,6 +23,8 @@ dtrie *dtrie_new_node()
 // Destroying dtrie
 void dtrie_unload(dtrie *t)
 {
+    if (t == NULL)
+        return;
     for (int i = 0; i < 27; i++)
     {
         if (t->node[i] != NULL)

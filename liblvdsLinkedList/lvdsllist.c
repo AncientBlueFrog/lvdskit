@@ -138,16 +138,10 @@ void list_delete_node(struct lvds_list *l, int index)
 void list_unload_node(struct lvds_list *l, int index)
 {
     if (l->link)
-    {
-        printf("Attempt to unload a link\n");
         return;
-    }
 
     if (l == NULL)
-    {
-        printf("Attempt to pass a NULL list\n");
         return;
-    }
 
     struct ll_node *node = l->start, *previous_node = NULL;
 
@@ -197,14 +191,11 @@ void list_delete(struct lvds_list *l)
 
 void list_unload(struct lvds_list *l, void (*cleaner_fun)(void *))
 {
+    if (l == NULL)
+        return;
+
     if (!l->link)
     {
-        if (l == NULL)
-        {
-            printf("Attempt to pass a NULL list\n");
-            return;
-        }
-
         struct ll_node *node = l->start, *previous_node;
 
         while (node != NULL)
@@ -227,14 +218,11 @@ void list_unload(struct lvds_list *l, void (*cleaner_fun)(void *))
 
 void list_sunload(struct lvds_list *l)
 {
+    if (l == NULL)
+        return;
+
     if (!l->link)
     {
-        if (l == NULL)
-        {
-            printf("Attempt to pass a NULL list\n");
-            return;
-        }
-
         struct ll_node *node = l->start, *previous_node;
 
         while (node != NULL)

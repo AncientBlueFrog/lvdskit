@@ -31,8 +31,11 @@ hashtable *new_hashtable()
     return temp_htable;
 }
 
-bool hashtable_delete(hashtable *table)
+void hashtable_delete(hashtable *table)
 {
+    if (table == NULL)
+        return;
+
     for (int i = 0; i < HT_MAGIC_NUMBER; i++)
     {
         for (struct ht_elem *list = (*table)[i], *previous_list; (previous_list = list);)
@@ -45,11 +48,14 @@ bool hashtable_delete(hashtable *table)
 
     free(table);
 
-    return true;
+    return;
 }
 
-bool hashtable_unload(hashtable *table, void (*cleaner_fun)(void *))
+void hashtable_unload(hashtable *table, void (*cleaner_fun)(void *))
 {
+    if (table == NULL)
+        return;
+
     for (int i = 0; i < HT_MAGIC_NUMBER; i++)
     {
         for (struct ht_elem *list = (*table)[i], *previous_list; (previous_list = list);)
@@ -70,7 +76,7 @@ bool hashtable_unload(hashtable *table, void (*cleaner_fun)(void *))
 
     free(table);
 
-    return true;
+    return;
 }
 
 bool hashtable_load(hashtable *table, void *data, char *key)

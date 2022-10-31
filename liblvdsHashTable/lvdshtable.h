@@ -25,6 +25,6 @@ void *hashtable_check(lvds_hashtable *table, char *key);
 bool hashtable_append(lvds_hashtable *dest, lvds_hashtable *src);
 bool hashtable_sappend(lvds_hashtable *dest, lvds_hashtable *src, void (*cleaner_fun)());
 bool hashtable_absorb(lvds_hashtable *dest, lvds_hashtable *src);
-bool hashtable_delete(lvds_hashtable *table);
-bool hashtable_unload(lvds_hashtable *table, void (*)());
+void hashtable_delete(lvds_hashtable *table);
+void hashtable_unload(lvds_hashtable *table, void (*)());
 #endif // !LVDSHTABLE

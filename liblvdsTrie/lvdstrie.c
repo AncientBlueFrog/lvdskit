@@ -23,6 +23,9 @@ trie *trie_new_node()
 // Destroying trie
 void trie_unload(trie *t)
 {
+    if (t == NULL)
+        return;
+
     for (int i = 0; i < TRIE_MAGIC_NUMBER; i++)
     {
         if (t->node[i] != NULL)
