@@ -23,7 +23,7 @@ bool list_sadd(struct lvds_list *l, char *value);
 void list_delete_node(struct lvds_list *l, int index);
 void list_unload_node(struct lvds_list *l, int index);
 void list_delete(struct lvds_list *l);
-void list_unload(struct lvds_list *l, void (*cleaner)(void *));
+void list_unload(struct lvds_list *l, void (*cleaner)());
 void list_sunload(struct lvds_list *l);
 void list_rewind(struct lvds_list *l);
 void *list_get(struct lvds_list *l);
