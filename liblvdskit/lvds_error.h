@@ -1,7 +1,4 @@
-#define ERROR_HANDLING_INIT                                                                                            \
-    {                                                                                                                  \
-        char *error_msg = NULL;                                                                                        \
-    }
+#define START_LVDS_ERROR char *error_msg = NULL;
 
 #define MALLOC_ERROR_WARNING(x) "Failed to allocate memory in: " x "\n"
 #define FUNCTION_ERROR_WARNING(x) "Error in function: " x "\n"
