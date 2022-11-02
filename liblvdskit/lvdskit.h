@@ -1,5 +1,6 @@
 #ifndef LVDSKIT_H
 #define LVDSKIT_H
+#include <lvds_error.h>
 #include <lvdsfloat.h>
 #include <lvdshtable.h>
 #include <lvdsllist.h>

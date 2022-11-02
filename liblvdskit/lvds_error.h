@@ -1,6 +1,6 @@
 #define ERROR_HANDLING_INIT                                                                                            \
     {                                                                                                                  \
-        char *error_msg = NULL                                                                                         \
+        char *error_msg = NULL;                                                                                        \
     }
 
 #define MALLOC_ERROR_WARNING(x) "Failed to allocate memory in: " x "\n"
