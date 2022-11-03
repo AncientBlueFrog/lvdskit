@@ -10,7 +10,7 @@
     if (!(x))                                                                                                          \
     {                                                                                                                  \
         if (error_msg != NULL)                                                                                         \
-            printf("%s", error_msg);                                                                                   \
+            printf("%s\n", error_msg);                                                                                 \
         if ((clean_structure != NULL) && (structure == NULL))                                                          \
             clean_structure(structure);                                                                                \
         return 0;                                                                                                      \
