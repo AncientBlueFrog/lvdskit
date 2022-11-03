@@ -5,7 +5,7 @@
     void (*clean_structure)(void *) = (void (*)(void *))y;                                                             \
     char *error_msg = NULL;
 
-#define ERR_MSG_EQLS(x) error_msg = x
+#define DEF_ERR_MSG(x) error_msg = x
 #define TRY(x)                                                                                                         \
     if (!(x))                                                                                                          \
     {                                                                                                                  \
