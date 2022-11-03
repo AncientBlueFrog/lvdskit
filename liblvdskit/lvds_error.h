@@ -6,7 +6,7 @@
     char *error_msg = NULL;
 
 #define DEF_ERR_MSG(x) error_msg = x
-#define UNDEF_ERR_MSG(x) error_msg = NULL
+#define UNDEF_ERR_MSG error_msg = NULL
 #define TRY(x)                                                                                                         \
     if (!(x))                                                                                                          \
     {                                                                                                                  \
