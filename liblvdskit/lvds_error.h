@@ -1,5 +1,5 @@
-#define MALLOC_ERROR_WARNING(x) "Failed to allocate memory in: " x "\n"
-#define FUNCTION_ERROR_WARNING(x) "Error in function: " x "\n"
+#define MALLOC_ERROR_WARNING(x) "Failed to allocate memory in: " x
+#define FUNCTION_ERROR_WARNING(x) "Error in function: " x
 #define START_LVDS_ERROR(x, y)                                                                                         \
     void *structure = x;                                                                                               \
     void (*clean_structure)(void *) = (void (*)(void *))y;                                                             \
