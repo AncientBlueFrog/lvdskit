@@ -20,7 +20,7 @@ unsigned long HASH_FUNCTION(unsigned char *str);
 lvds_hashtable *new_hashtable();
 bool hashtable_load(lvds_hashtable *table, void *data, char *key);
 bool hashtable_sload(lvds_hashtable *table, void *data, char *key);
-bool hashtable_sload_fif(lvds_hashtable *table, void *data, char *key, void (*cleaner_fun)());
+bool hashtable_cload(lvds_hashtable *table, void *data, char *key, void (*cleaner_fun)());
 void *hashtable_check(lvds_hashtable *table, char *key);
 bool hashtable_append(lvds_hashtable *dest, lvds_hashtable *src);
 bool hashtable_sappend(lvds_hashtable *dest, lvds_hashtable *src, void (*cleaner_fun)());

@@ -177,7 +177,7 @@ bool hashtable_sload(hashtable *table, void *data, char *key)
     return true;
 }
 
-bool hashtable_sload_fif(hashtable *table, void *data, char *key, void (*cleaner_fun)(void *))
+bool hashtable_cload(hashtable *table, void *data, char *key, void (*cleaner_fun)(void *))
 {
     if (key == NULL)
     {
@@ -282,7 +282,7 @@ bool hashtable_sappend(hashtable *dest, hashtable *src, void (*cleaner_fun)())
     for (int i = 0; i < HT_MAGIC_NUMBER; i++)
     {
         for (struct ht_elem *src_list = (*src)[i]; src_list != NULL; src_list = src_list->next)
-            hashtable_sload_fif(dest, src_list->data, src_list->key, cleaner_fun);
+            hashtable_cload(dest, src_list->data, src_list->key, cleaner_fun);
     }
 
     return true;

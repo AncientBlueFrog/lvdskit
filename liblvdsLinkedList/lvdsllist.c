@@ -88,6 +88,11 @@ bool list_sadd(struct lvds_list *l, char *data)
     }
 
     char *str = strdup(data);
+    if (!str)
+    {
+        DISPLAY_MALLOC_ERROR;
+    }
+
     if (!list_add(l, str))
     {
         DISPLAY_MALLOC_ERROR;
